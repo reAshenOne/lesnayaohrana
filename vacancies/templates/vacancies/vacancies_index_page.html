@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}template-vacanciesindexpage{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/vacancies_index_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container">
+    {% include "vacancies/breadcrumbs.html" %}
+
+    <h2 style="margin-top: 20px; margin-bottom: 20px;">{{page.title}}</h2>    
+
+    <div class="background-color-white">
+        {% for post in vacanciespages %}
+            
+        {% with post=post.specific %}
+            <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+            {% if forloop.counter != vacanciespages|length %}
+                <hr>
+            {% endif %}
+            {% endwith %}
+    {% endfor %}
+    </div>
+    
+    <!-- Pagination links -->
+    <div class="pagination mt-4">
+        <ul class="pagination">
+            {% if vacanciespages.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ vacanciespages.previous_page_number }}">Предыдущая</a>
+                </li>
+            {% endif %}
+                
+            {% for page_num in vacanciespages.paginator.page_range %}
+                <li class="page-item {% if page_num == vacanciespages.number %}active{% endif %}">
+                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+                
+            {% if vacanciespages.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ vacanciespages.next_page_number }}">Следующая</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ vacanciespages.paginator.num_pages }}">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

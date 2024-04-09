@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}template-newsindexpage{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/structure_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    {% include "structure/breadcrumbs.html" %}
+    <h2 style="margin-top: 20px; margin-bottom: 20px;">{{ page.title }}</h2>
+    <div class="background-color">
+        <div class="row">
+            <div class="col text-center">
+                <div class="director">Директор</div>
+                <div class="row">
+                    <div class="col-4 text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Заместитель <br>директора</div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="line"></div>
+                                <div class="department small-font">Отдел контроля 
+                                    за соблюдением 
+                                    лесничествами показателей 
+                                    качества оказываемых услуг, 
+                                    выполняемых работ
+                                </div>
+                            </div>
+                            <div class="col text-center">
+                                <div class="line"></div>
+                                <div class="department small-font">Отдел лесной охраны</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Заместитель директора</div>
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="department small-font">Отдел федерального государственного лесного контроля (надзор)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Заместитель директора</div>
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="department small-font">Отдел экономики и административно-хозяйственного обеспечения</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Главнвый <br>бухгалтер</div>
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="department small-font">Бухгалтерия</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Отдел зонального контроля</div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="line"></div>
+                        <div class="manager small-font">Служба главного механика</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="background-color">
+    {% if page.departments.all %}
+        {% for department in page.departments.all %}
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>{{ department.name }}</h4>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        {% for employee in department.employees.all %}
+                            <div class="col-md-4">
+                                <div class="card mb-4 text-left">
+                                    {% image employee.photo original as emp_photo %}
+                                    <img src="{{ emp_photo.url }}" class="card-img-top" alt="{{ employee.full_name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ employee.full_name }}</h5>
+                                        <p class="card-text">{{ employee.position }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Не найдено</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/lesohr_site.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Scada:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Scada:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" sizes="16x16">
+
+        <style>
+        
+        </style>
+        
+        {% block extra_css %}
+        
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        
+        <div class="green-header py-1">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'images/logo.png' %}" alt="Учреждение" class="logo me-2">
+                    <div class="header-text text-white">
+                        <h2 style="font-size: 1.5rem; font-family: 'Scada', sans-serif; text-transform: uppercase;">
+                            Краевое государственное казенное <br> учреждение «Лесная охрана»
+                        </h2>
+                    </div>
+                </div>
+                <img src="{% static 'images/1200px-Coat_of_arms_of_Krasnoyarsk_Krai.svg.png' %}" alt="Учреждение" class="coat me-2" style="align-self: flex-end;">
+            </div>
+        </div>
+        
+        <nav class="navbar navbar-expand-lg navbar-light bg-custom-green" style="padding-top: 0; padding-bottom: 0;">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto" style="font-size: 1.1rem; margin-top: 0; margin-bottom: 0;">
+                        <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                            <a class="nav-link text-white" href="/">ДЕЯТЕЛЬНОСТЬ</a>
+                        </li>
+                        <li class="nav-item {% if '/news/' in request.path %}active{% endif %}">
+                            <a class="nav-link text-white" href="/news">ПРЕСС-ЦЕНТР</a>
+                        </li>
+                        <li class="nav-item {% if '/documents/' in request.path %}active{% endif %}">
+                            <a class="nav-link text-white" href="/documents">ДОКУМЕНТЫ</a>
+                        </li>
+                        <li class="nav-item {% if '/structure/' in request.path %}active{% endif %}">
+                            <a class="nav-link text-white" href="/structure">СТРУКТУРА</a>
+                        </li>
+                        <li class="nav-item {% if '/contacts/' in request.path %}active{% endif %}">
+                            <a class="nav-link text-white" href="/contacts">КОНТАКТЫ</a>
+                        </li>
+                        <li class="nav-item {% if '/vacancies/' in request.path %}active{% endif %}">
+                            <a class="nav-link text-white" href="/vacancies">ВАКАНСИИ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+        
+        <footer class="text-light py-4 mt-auto custom-footer" style="background-color: rgb(95, 191, 95);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" style="margin-right: 2rem;">
+                        <h5>КОНТАКТЫ</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><b>Адрес:</b><br> 660093, Красноярский край, Красноярск, просп. имени газеты Красноярский Рабочий, 160 стр.1</li>
+                            <li class="mb-2"><b>Приемная:</b> 8 (391) 233-01-10</li>
+                            <li class="mb-2"><b>Почта:</b> priem@lesohr.krskcit.ru</li>
+                            <li class="mb-2"><b>Социальные сети:</b> <a href="https://vk.com/lesohr10" target="_blank" rel="noopener noreferrer">
+                                <img src="{% static 'images/free-vk-icon-120-thumb.png' %}" width="30" height="30" alt="VKontakte">
+                            </a></li>
+                            <li class="mb-2">КГКУ «Лесная охрана», 2024</li>
+                        </ul>
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <h5>ПОЛЕЗНЫЕ ССЫЛКИ</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a style="color: white; text-decoration: none;" href="http://www.mlx.krskstate.ru/">Министерство природных ресурсов и лесного комплекса Красноярского края</a></li>
+                            <li class="mb-2"><a style="color: white; text-decoration: none;" href="https://www.lpcentr.ru/">Лесопожарный центр</a></li>
+                            <li class="mb-2"><a style="color: white; text-decoration: none;" href="https://gosuslugi.krskstate.ru/#/">ГОСУСЛУГИ Красноярский край</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        {% wagtailuserbar %}
+
+        {# Global javascript #}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        {% block extra_js %}
+        
+        {% endblock %}
+
+    </body>
+</html>

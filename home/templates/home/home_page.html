@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+<!-- load wagtailcore_tags by adding this: -->
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+<!-- replace everything below with: -->
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/home_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 style="margin-top: 20px; margin-bottom: 20px;">Актуальная информация</h2>
+        <div class="background-color">
+            <div class="row">
+                {% for post in latest_news %}
+                    {% with post=post.specific %}
+                        <div class="col-md-4">
+                            {% with post.main_image as main_image %}
+                                {% image main_image fill-480x300 as main_image %}
+                                    <img src="{{ main_image.url }}" class="img-fluid" alt="{{ post.title }}">
+                            {% endwith %}
+                            <p class="date-under-image"><small class="text-muted">{{ post.date }}</small></p>
+                            <h4><a href="{% pageurl post %}" class="news-link">{{ post.title }}</a></h4>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <div class="text-center mt-4">
+                <a href="/news/" class="btn btn-primary" style="background-color: rgb(95, 191, 95); color: white; border-color: rgb(95, 191, 95);">Смотреть все новости</a>
+            </div>
+        </div>
+        
+    
+        <h2 style="margin-top: 20px; margin-bottom: 20px;">{{page.title}}</h2>  
+        
+        
+            <div class="row">
+                <div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="background-color mb-4">   
+                        <h4>{{ page.column1_title }}</h4>
+                        {{ page.column1_text|richtext }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="background-color mb-4">   
+                        <h4>{{ page.column2_title }}</h4>
+                        {{ page.column2_text|richtext }}
+                    </div>
+                </div>
+            </div>
+
+       
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home_page.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}template-newsindexpage{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/news_index_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container">
+    {% include "news/breadcrumbs.html" %}
+    <h2 style="margin-top: 20px; margin-bottom: 20px;">{{page.title}}</h2>    
+    <div class="background-color-white">
+        {% for post in newspages %}
+            
+        {% with post=post.specific %}
+            <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+            
+            <div style="display: flex; align-items: start;">
+                {% with post.main_image as main_image %}
+                    {% if main_image %}
+                        <div style="margin-right: 20px;">
+                            {% image main_image fill-320x200 %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                    
+                <div style="align-self: flex-start;">
+                    <p>{{ post.intro }}</p>
+                    <p><a href="{% pageurl post %}">Читать далее...</a></p>
+                    <p><small> {{ post.date }} </small></p>
+                    
+                </div>
+                
+            </div>
+            {% if forloop.counter != newspages|length %}
+                <hr>
+            {% endif %}
+            {% endwith %}
+    {% endfor %}
+    </div>
+    
+    <!-- Pagination links -->
+    <div class="pagination mt-4">
+        <ul class="pagination">
+            {% if newspages.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ newspages.previous_page_number }}">Предыдущая</a>
+                </li>
+            {% endif %}
+                
+            {% for page_num in newspages.paginator.page_range %}
+                <li class="page-item {% if page_num == newspages.number %}active{% endif %}">
+                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+                
+            {% if newspages.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ newspages.next_page_number }}">Следующая</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ newspages.paginator.num_pages }}">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

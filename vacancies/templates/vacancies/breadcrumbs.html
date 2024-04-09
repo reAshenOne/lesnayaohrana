@@ -1,0 +1,17 @@
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/breadcrumbs.css' %}">
+{% endblock extra_css %}
+
+<nav aria-label="breadcrumb" style="margin-top: 20px;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        {% for parent_page in page.get_ancestors %}
+            {% if parent_page.depth > 2 %}
+                <li class="breadcrumb-item"><a href="{% pageurl parent_page %}">{{ parent_page.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+    </ol>
+</nav>

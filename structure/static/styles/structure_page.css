@@ -1,0 +1,36 @@
+.director {
+    background-color: rgb(95, 191, 95);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.manager {
+    background-color: rgb(95, 191, 95);
+    padding: 10px;
+}
+
+.department {
+    background-color: rgb(95, 191, 95);
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.line {
+    border-left: 2px solid rgb(143, 143, 143);
+    height: 20px; /* Вы можете настроить длину линии в зависимости от вашего дизайна */
+    margin-left: 50%;
+}
+
+  .background-color {
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-bottom: 20px;
+} 
+
+.small-font {
+    font-size: 16px; /* Настроим размер шрифта */
+    color: rgb(255, 255, 255);
+    border-radius: 10px; 
+}

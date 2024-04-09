@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/news_tag_index_page.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+<div class="container">
+    {% include "news/breadcrumbs.html" %}
+    {% if request.GET.tag %}
+        <h2>Новости по тегу "{{ request.GET.tag }}"</h2>
+    {% endif %}
+    <div class="background-color-white"> 
+        {% for newspage in newspages %}
+          <p>
+            <small>{{ newspage.latest_revision_created_at }}</small><br />
+            <strong><a href="{% pageurl newspage %}">{{ newspage.title }}</a></strong><br /> 
+          </p>
+    {% empty %}
+        Не найдено новостей по тегу
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

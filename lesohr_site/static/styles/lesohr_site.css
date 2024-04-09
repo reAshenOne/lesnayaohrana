@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    background-color: rgb(255, 239, 239);
+    font-size: 1.1rem;
+    font-family: Roboto, sans-serif;
+}
+.green-header {
+    background-color: rgb(21, 99, 21);
+}
+
+.logo {
+    max-width: 90px; 
+}
+
+.coat {
+    max-width: 75px; 
+}
+
+.bg-custom-green {
+    background-color: rgb(95, 191, 95)
+}
+
+.navbar-nav .nav-link {
+    font-family: Roboto, sans-serif; 
+    font-size: 1.2rem;
+    margin-right: 20px;
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    background-color: rgb(21, 99, 21); 
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Scada', 'sans-serif';
+}
+

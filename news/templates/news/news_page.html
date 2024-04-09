@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/news_page.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}template-newspage{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "news/breadcrumbs.html" %}
+        <p style="font-size: 14px;">{{ page.date }}</p>
+        <h2 style="margin-bottom: 20px; max-width: 800px; word-wrap: break-word;">{{page.title}}</h2>
+        <div class="col-md-8">
+            <div class="background-color-white">
+                {{ page.body|richtext }}
+                <div class="container">
+                    <div id="carouselExample" class="carousel slide mx-auto" data-bs-ride="carousel" style="max-width: 800px;">
+                        <div class="carousel-inner">
+                            {% for item in page.gallery_images.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                {% image item.image fill-800x600 class="d-block img-fluid" %}
+                                <div class="carousel-caption d-none d-md-block">
+                                    <p>{{ item.caption }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                
+                {% with tags=page.tags.all %}
+                    {% if tags %}
+                        <div class="tags">
+                            <span>Теги:</span>
+                            {% for tag in tags %}
+                                {% if not forloop.first %}/ {% endif %}
+                                <a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        
+        </div>
+
+        
+            <div class="col-md-4">
+                <h2 style=margin-bottom:20px;">Другие новости</h2>
+                <div class="other-news">
+                
+                {% with siblings=page.get_siblings.reverse.specific|slice:":4" %}
+                    {% for sibling in siblings %}
+                        {% if sibling.id != page.id %}
+                                <p style="font-size: 14px;">{{ sibling.date }}</p>
+                                    {% with sibling.main_image as main_image %}
+                                            {% if main_image %}
+                                                <div style="margin-right: 20px;">
+                                                    {% image main_image fill-380x250 %}
+                                                </div>
+                                            {% endif %}
+                                    {% endwith %}
+                                <h4><a href="{{ sibling.url }}">{{ sibling.title }}</a></h4>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+                <div>
+            </div>
+        
+    </div>
+</div>
+{% endblock %}

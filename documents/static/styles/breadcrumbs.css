@@ -1,0 +1,8 @@
+.breadcrumb-item a {
+    color: rgb(95, 191, 95); /* Цвет ссылок */
+    text-decoration: none; /* Убрать подчеркивание у всех ссылок */
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline; /* Добавить подчеркивание при наведении */
+}

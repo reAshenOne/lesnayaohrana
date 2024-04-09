@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'styles/vacancies_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container">
+    {% include "vacancies/breadcrumbs.html" %}
+
+    <h2 style="margin-top: 20px; margin-bottom: 20px;">{{page.title}}</h2>
+    <div class="background-color-white">
+        {{ page.body|richtext }}
+    </div>
+</div>
+
+{% endblock %}
