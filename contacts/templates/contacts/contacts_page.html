@@ -14,18 +14,15 @@
     <div class="background-color-white">
         <div class="row">
             <div class="col-md-6">
-                <!-- Вставка Яндекс карты -->
-                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A55311dfa247bea14921b92cdea9657eb9f8e1b381a4b7be19afaf2e3dc6770c7&amp;source=constructor" width="600" height="400" frameborder="0"></iframe>
+                    <iframe class="embed-responsive-item w-100" src="https://yandex.ru/map-widget/v1/?um=constructor%3A55311dfa247bea14921b92cdea9657eb9f8e1b381a4b7be19afaf2e3dc6770c7&amp;source=constructor" height="400"></iframe>
             </div>
-            <div class="col-md-6">
-                <!-- RichText -->
+            <div class="col-md-6 mt-3 mt-md-0">
                 <div class="body-content">
                     {{ page.body|richtext }}
                 </div>
             </div>
         </div>
     </div>
-    
 </div>
 
 {% endblock %}
