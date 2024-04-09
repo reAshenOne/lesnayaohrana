@@ -15,7 +15,7 @@
     <div class="background-color-white"> 
         {% for newspage in newspages %}
           <p>
-            <small>{{ newspage.latest_revision_created_at }}</small><br />
+            <small>{{ newspage.date }}</small><br />
             <strong><a href="{% pageurl newspage %}">{{ newspage.title }}</a></strong><br /> 
           </p>
     {% empty %}
