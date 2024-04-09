@@ -15,33 +15,34 @@
     {% include "news/breadcrumbs.html" %}
     <h2 style="margin-top: 20px; margin-bottom: 20px;">{{page.title}}</h2>    
     <div class="background-color-white">
-        {% for post in newspages %}
-            
-        {% with post=post.specific %}
-            <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
-            
-            <div style="display: flex; align-items: start;">
-                {% with post.main_image as main_image %}
-                    {% if main_image %}
-                        <div style="margin-right: 20px;">
-                            {% image main_image fill-320x200 %}
+            <div class="row">
+                {% for post in newspages %}
+                {% with post=post.specific %}
+                <div class="col-md-12">
+                    <h4><a href="{% pageurl post %}">{{ post.title }}</a></h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% with post.main_image as main_image %}
+                            {% if main_image %}
+                            <div class="mb-3">
+                                {% image main_image fill-320x200 %}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
                         </div>
-                    {% endif %}
-                {% endwith %}
-                    
-                <div style="align-self: flex-start;">
-                    <p>{{ post.intro }}</p>
-                    <p><a href="{% pageurl post %}">Читать далее...</a></p>
-                    <p><small> {{ post.date }} </small></p>
-                    
+                        <div class="col-md-8">
+                            <p>{{ post.intro }}</p>
+                            <p><a href="{% pageurl post %}">Читать далее...</a></p>
+                            <p><small> {{ post.date }} </small></p>
+                        </div>
+                    </div>
                 </div>
-                
-            </div>
-            {% if forloop.counter != newspages|length %}
+                {% if forloop.counter != newspages|length %}
                 <hr>
-            {% endif %}
-            {% endwith %}
-    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% endfor %}
+            </div>
     </div>
     
     <!-- Pagination links -->
